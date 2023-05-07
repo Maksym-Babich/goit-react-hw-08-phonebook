@@ -1,48 +1,17 @@
-import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { ColorRing } from 'react-loader-spinner';
-import { Form } from 'components/Form/Form';
-import { Section } from 'components/Section/Section';
-import { SectionMain } from 'components/SectionMain/SectionMain';
-import { Contacts } from 'components/Contacts/Contacts';
-import { Search } from 'components/Search/Search';
-import { fetchContacts } from 'redux/operations';
-import { selectError, selectIsLoading } from 'redux/selectors';
+import { SharedLayout } from 'components/SharedLayout/SharedLayout';
+import { ContactsPage } from 'components/ContactsPage/ContactsPage';
+import { Login } from 'components/Login/Login';
+import { Register } from 'components/Register/Register';
 
 export function App() {
-  const dispatch = useDispatch();
-  const error = useSelector(selectError);
-  const isLoading = useSelector(selectIsLoading);
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
   return (
     <>
       <Routes>
-        <Route>
-          <SectionMain title="Phonebook">
-            <Form />
-            <Section title="Contacts">
-              <Search />
-
-              <Contacts>
-                {isLoading && !error && (
-                  <ColorRing
-                    visible={true}
-                    height="80"
-                    width="80"
-                    ariaLabel="blocks-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="blocks-wrapper"
-                    colors={['#000']}
-                  />
-                )}
-              </Contacts>
-            </Section>
-          </SectionMain>
+        <Route path="/goit-react-hw-08-phonebook" element={<SharedLayout />}>
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+          <Route path="contacts" element={<ContactsPage />} />
         </Route>
       </Routes>
     </>
