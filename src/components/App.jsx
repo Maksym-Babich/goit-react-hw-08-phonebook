@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { refreshUser } from 'redux/auth/operations';
 import { selectIsRefreshing } from 'redux/auth/selectors';
+import { RestrictedRoute } from 'components/RestrictedRoute';
+import { PrivateRoute } from 'components/PrivateRoute';
 
 export function App() {
   const isRefreshing = useSelector(selectIsRefreshing);
@@ -20,9 +22,33 @@ export function App() {
       {!isRefreshing && (
         <Routes>
           <Route path="/goit-react-hw-08-phonebook" element={<SharedLayout />}>
-            <Route path="register" element={<Register />} />
-            <Route path="login" element={<Login />} />
-            <Route path="contacts" element={<ContactsPage />} />
+            <Route
+              path="register"
+              element={
+                <RestrictedRoute
+                  component={<Register />}
+                  redirectTo="/goit-react-hw-08-phonebook/contacts"
+                />
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <RestrictedRoute
+                  component={<Login />}
+                  redirectTo="/goit-react-hw-08-phonebook/contacts"
+                />
+              }
+            />
+            <Route
+              path="contacts"
+              element={
+                <PrivateRoute
+                  component={<ContactsPage />}
+                  redirectTo="/goit-react-hw-08-phonebook/login"
+                />
+              }
+            />
           </Route>
         </Routes>
       )}

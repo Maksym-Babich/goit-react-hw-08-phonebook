@@ -3,6 +3,7 @@ import {
   Input,
   Button,
   Label,
+  Wrapper,
 } from 'components/Register/Register.styled';
 import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
@@ -28,14 +29,16 @@ export function Register() {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Label htmlFor={nameId}>Name</Label>
-      <Input id={nameId} required name="name" type="text" />
-      <Label htmlFor={emailId}>Email</Label>
-      <Input id={emailId} required name="email" type="email" />
-      <Label htmlFor={passId}>Password</Label>
-      <Input id={passId} required name="password" type="password" />
-      <Button type="submit">Register</Button>
-    </Form>
+    <Wrapper>
+      <Form onSubmit={handleSubmit}>
+        <Label htmlFor={nameId}>Name</Label>
+        <Input id={nameId} required name="name" type="text" />
+        <Label htmlFor={emailId}>Email</Label>
+        <Input id={emailId} required name="email" type="email" />
+        <Label htmlFor={passId}>Password</Label>
+        <Input id={passId} required name="password" type="password" />
+        <Button type="submit">Register</Button>
+      </Form>
+    </Wrapper>
   );
 }

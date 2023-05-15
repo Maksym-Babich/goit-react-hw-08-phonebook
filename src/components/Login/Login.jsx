@@ -1,4 +1,10 @@
-import { Form, Input, Button, Label } from 'components/Login/Login.styled';
+import {
+  Form,
+  Input,
+  Button,
+  Label,
+  Wrapper,
+} from 'components/Login/Login.styled';
 import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
 import { login } from 'redux/auth/operations';
@@ -10,10 +16,10 @@ export function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const form = e.target;
+    const form = e.currentTarget;
     dispatch(
       login({
-        name: form.elements.name.value,
+        password: form.elements.password.value,
         email: form.elements.email.value,
       })
     );
@@ -21,14 +27,14 @@ export function Login() {
   }
 
   return (
-    <Form>
-      <Label htmlFor={emailId}>Email</Label>
-      <Input id={emailId} required name="email" type="email" />
-      <Label htmlFor={passId}>Password</Label>
-      <Input id={passId} required name="password" type="password" />
-      <Button type="submit" onClick={handleSubmit}>
-        Log In
-      </Button>
-    </Form>
+    <Wrapper>
+      <Form onSubmit={handleSubmit}>
+        <Label htmlFor={emailId}>Email</Label>
+        <Input id={emailId} required name="email" type="email" />
+        <Label htmlFor={passId}>Password</Label>
+        <Input id={passId} required name="password" type="password" />
+        <Button type="submit">Log In</Button>
+      </Form>
+    </Wrapper>
   );
 }
